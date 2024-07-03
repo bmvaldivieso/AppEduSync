@@ -79,7 +79,9 @@ class InicioPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/loginpage');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: customColor,
                         minimumSize:
@@ -94,7 +96,9 @@ class InicioPage extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.04),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/registropage');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: customColor2,
                         minimumSize:

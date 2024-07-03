@@ -31,6 +31,26 @@ class MyApp extends StatelessWidget {
           page: () => const InicioPage(),
           transition: Transition.native,
         ),
+        GetPage(
+          name: '/loginpage',
+          page: () => const LoginPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/registropage',
+          page: () => const RegistroPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/homepage',
+          page: () => const HomePage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/asistenciapage',
+          page: () => const AsistenciaPage(),
+          transition: Transition.native,
+        ),
       ],
     );
   }
