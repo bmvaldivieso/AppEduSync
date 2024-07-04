@@ -4,25 +4,24 @@ class AsistenciaPage extends StatefulWidget {
   const AsistenciaPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AsistenciaPageState createState() => _AsistenciaPageState();
 }
 
 class _AsistenciaPageState extends State<AsistenciaPage> {
   int _selectedIndex = 1;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Inicio'),
-    Text('Asistencia'),
-    Text('Tareas'),
-    Text('Avisos'),
-    Text('Calendario'),
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
         Navigator.pushNamed(context, '/homepage');
+      }
+      if (_selectedIndex == 2) {
+        Navigator.pushNamed(context, '/tareaspage');
+      }
+      if (_selectedIndex == 3) {
+        Navigator.pushNamed(context, '/avisospage');
       }
     });
   }
@@ -32,6 +31,7 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
     Color customColor = const Color(0xFF6750A4);
 
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +57,7 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            SizedBox(height: screenHeight * 0.055),
+            SizedBox(height: screenHeight * 0.04),
             const Text(
               'Hola, en que te puede ayudar?',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -66,36 +66,28 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
             TextField(
               decoration: InputDecoration(
                 hintText: 'Buscar',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
             SizedBox(height: screenHeight * 0.04),
-            _buildTaskCard(
-              Icons.person,
-              'Perfil',
-              'Ver y editar tu perfil',
-            ),
-            SizedBox(height: screenHeight * 0.04),
-            _buildTaskCard(
-              Icons.book,
-              'Cursos',
-              'Ver tus cursos inscritos',
-            ),
-            SizedBox(height: screenHeight * 0.04),
-            _buildTaskCard(
-              Icons.schedule,
-              'Horario',
-              'Ver tu horario de clases',
-            ),
-            SizedBox(height: screenHeight * 0.04),
-            _buildTaskCard(
-              Icons.settings,
-              'Ajustes',
-              'Configurar tu cuenta',
-            ),
+            _buildTaskCard(Icons.help, 'Cómo Usar la App',
+                'Aprende a usar todas las funciones de la aplicación',
+                width: screenWidth * 0.2, height: screenHeight * 0.125),
+            SizedBox(height: screenHeight * 0.02),
+            _buildTaskCard(Icons.bug_report, 'Reportar Error',
+                'Informa sobre cualquier error que encuentres',
+                width: screenWidth * 0.2, height: screenHeight * 0.125),
+            SizedBox(height: screenHeight * 0.02),
+            _buildTaskCard(Icons.question_answer, 'Ayuda con Dudas',
+                'Obtén asistencia para resolver tus dudas',
+                width: screenWidth * 0.2, height: screenHeight * 0.125),
+            SizedBox(height: screenHeight * 0.02),
+            _buildTaskCard(Icons.contact_support, 'Soporte Técnico',
+                'Contacta al soporte técnico para más ayuda',
+                width: screenWidth * 0.2, height: screenHeight * 0.125),
           ],
         ),
       ),
@@ -129,16 +121,21 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
     );
   }
 
-  Widget _buildTaskCard(IconData icon, String title, String subtitle) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: Icon(Icons.arrow_forward),
-        onTap: () {
-          // Acción al presionar el elemento
-        },
+  Widget _buildTaskCard(IconData icon, String title, String subtitle,
+      {double width = 300, double height = 100}) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Card(
+        child: ListTile(
+          leading: Icon(icon),
+          title: Text(title),
+          subtitle: Text(subtitle),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () {
+            // Acción al presionar el elemento
+          },
+        ),
       ),
     );
   }

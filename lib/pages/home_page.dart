@@ -11,19 +11,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Inicio'),
-    Text('Asistencia'),
-    Text('Tareas'),
-    Text('Avisos'),
-    Text('Calendario'),
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 1) {
         Navigator.pushNamed(context, '/asistenciapage');
+      }
+      if (_selectedIndex == 2) {
+        Navigator.pushNamed(context, '/tareaspage');
+      }
+      if (_selectedIndex == 3) {
+        Navigator.pushNamed(context, '/avisospage');
       }
     });
   }
@@ -31,6 +29,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Color customColor = const Color(0xFF6750A4);
+
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -56,39 +57,43 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 hintText: 'Buscar',
                 prefixIcon: Icon(Icons.search),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.026),
             Row(
               children: [
                 _buildCourseCard(
-                    'Revisión Grupo 2',
-                    'Lorem ipsum dolor sit amet, consectetur',
-                    'assets/LogoEduSyncAmarillo.png'),
-                SizedBox(width: 16),
+                    'Computación',
+                    'Conceptos básicos y fundamentos de programación',
+                    'assets/LogoEduSyncNegro.png'),
+                SizedBox(width: screenWidth * 0.042),
                 _buildCourseCard(
-                    'Header',
-                    'Lorem ipsum dolor sit amet, consectetur',
+                    'Física Avanzada',
+                    'Estudio de la mecánica clásica y sus aplicaciones',
                     'assets/LogoEduSyncAmarillo.png'),
-                SizedBox(width: 16),
+                SizedBox(width: screenWidth * 0.042),
                 _buildCourseCard(
-                    'Header',
-                    'Lorem ipsum dolor sit amet, consectetur',
+                    'Química General',
+                    'Principios básicos de química y sus reacciones',
                     'assets/LogoEduSyncAmarillo.png'),
               ],
             ),
-            SizedBox(height: 32),
+            SizedBox(height: screenHeight * 0.036),
             _buildSectionHeader('TAREAS', () {}),
-            _buildTaskCard('Row Header', 'Body copy description'),
-            _buildTaskCard('Row Header', 'Body copy description'),
-            SizedBox(height: 32),
+            _buildTaskCard('Tarea 1 de Programación',
+                'Implementar un algoritmo de búsqueda'),
+            _buildTaskCard(
+                'Tarea de Física I', 'Resolver problemas de cinemática'),
+            SizedBox(height: screenHeight * 0.036),
             _buildSectionHeader('AVISOS', () {}),
-            _buildTaskCard('Row Header', 'Body copy description'),
-            _buildTaskCard('Row Header', 'Body copy description'),
+            _buildTaskCard(
+                'Aviso de Química General', 'Se pospone la clase del lunes'),
+            _buildTaskCard('Aviso de Programación',
+                'Nuevo material de estudio disponible'),
           ],
         ),
       ),
@@ -132,7 +137,8 @@ class _HomePageState extends State<HomePage> {
                 height: 100, width: double.infinity, fit: BoxFit.cover),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(title,
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -148,10 +154,10 @@ class _HomePageState extends State<HomePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
         TextButton(
           onPressed: onViewAllPressed,
-          child: Text('Ver todas'),
+          child: const Text('Ver todas'),
         ),
       ],
     );
@@ -160,10 +166,10 @@ class _HomePageState extends State<HomePage> {
   Widget _buildTaskCard(String title, String subtitle) {
     return Card(
       child: ListTile(
-        leading: Icon(Icons.insert_drive_file),
+        leading: const Icon(Icons.insert_drive_file),
         title: Text(title),
         subtitle: Text(subtitle),
-        trailing: Icon(Icons.arrow_forward),
+        trailing: const Icon(Icons.arrow_forward),
         onTap: () {
           // Acción al presionar el elemento
         },

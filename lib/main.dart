@@ -51,6 +51,16 @@ class MyApp extends StatelessWidget {
           page: () => const AsistenciaPage(),
           transition: Transition.native,
         ),
+        GetPage(
+          name: '/tareaspage',
+          page: () => const TareasPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/avisospage',
+          page: () => const AvisosPage(),
+          transition: Transition.native,
+        ),
       ],
     );
   }
