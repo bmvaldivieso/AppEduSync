@@ -6,3 +6,7 @@ export 'package:AppEduSync/pages/home_page.dart';
 export 'package:AppEduSync/pages/asistencia_page.dart';
 export 'package:AppEduSync/pages/tareas_page.dart';
 export 'package:AppEduSync/pages/avisos_page.dart';
+export 'package:AppEduSync/pages/calendario_page.dart';
+export 'package:AppEduSync/pages/lista_chat_page.dart';
+export 'package:AppEduSync/pages/chat_page.dart';
+export 'package:AppEduSync/pages/error_page.dart';

@@ -25,6 +25,9 @@ class _TareasPageState extends State<TareasPage> {
       if (_selectedIndex == 3) {
         Navigator.pushNamed(context, '/avisospage');
       }
+      if (_selectedIndex == 4) {
+        Navigator.pushNamed(context, '/calendariopage');
+      }
     });
   }
 
@@ -50,8 +53,152 @@ class _TareasPageState extends State<TareasPage> {
         ],
       ),
       drawer: Drawer(
-        surfaceTintColor: customColor,
-        // Agrega aquí los elementos del Drawer
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: customColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.account_circle,
+                      size: 62, color: Colors.white),
+                  SizedBox(height: screenHeight * 0.01),
+                  Text(
+                    'Albert Stevano Bajefski',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: screenHeight * 0.026,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.005),
+                  Text(
+                    'Albertstevano@gmail.com',
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.7),
+                      fontSize: screenHeight * 0.017,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: Text(
+                'Inicio',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/homepage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.event),
+              title: Text(
+                'Calendario',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/calendariopage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: Text(
+                'Cursos',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/calendariopage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.chat),
+              title: Text(
+                'Chat',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/listachatpage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.build),
+              title: Text(
+                'Configuración',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/calendariopage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: Text(
+                'Sobre nosotros',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/calendariopage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person_pin_rounded),
+              title: Text(
+                'Asistencia',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/calendariopage');
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.exit_to_app, color: Colors.red),
+              title: Text(
+                'Cerrar sesión',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: screenHeight * 0.02,
+                ),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/home');
+              },
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -68,7 +215,7 @@ class _TareasPageState extends State<TareasPage> {
                   color: Colors.black,
                   constraints: BoxConstraints(
                       minHeight: screenHeight * 0.05,
-                      minWidth: screenWidth * 0.19),
+                      minWidth: screenWidth * 0.18),
                   isSelected: const [true, false, false],
                   children: const [Text('Hoy'), Text('Ayer'), Text('15 Abril')],
                   onPressed: (int index) {
@@ -88,7 +235,7 @@ class _TareasPageState extends State<TareasPage> {
                   child: Text(
                     'Marca Todas',
                     style: TextStyle(
-                      fontSize: screenHeight * 0.0135,
+                      fontSize: screenHeight * 0.01355,
                     ),
                   ),
                 ),
@@ -154,7 +301,7 @@ class _TareasPageState extends State<TareasPage> {
             label: 'Inicio',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.check_circle, color: Colors.black),
+            icon: Icon(Icons.person_pin_rounded, color: Colors.black),
             label: 'Asistencia',
           ),
           BottomNavigationBarItem(

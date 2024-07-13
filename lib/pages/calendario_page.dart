@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class AsistenciaPage extends StatefulWidget {
-  const AsistenciaPage({super.key});
+class CalendarioPage extends StatefulWidget {
+  const CalendarioPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _AsistenciaPageState createState() => _AsistenciaPageState();
+  _CalendarioPageState createState() => _CalendarioPageState();
 }
 
-class _AsistenciaPageState extends State<AsistenciaPage> {
-  int _selectedIndex = 1;
+class _CalendarioPageState extends State<CalendarioPage> {
+  DateTime selectedDate = DateTime.now();
+  int _selectedIndex = 4;
+  Color customColor = const Color(0xFF6750A4);
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (_selectedIndex == 0) {
-        Navigator.pushNamed(context, '/homepage');
+      if (_selectedIndex == 1) {
+        Navigator.pushNamed(context, '/asistenciapage');
       }
       if (_selectedIndex == 2) {
         Navigator.pushNamed(context, '/tareaspage');
@@ -23,30 +26,23 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
       if (_selectedIndex == 3) {
         Navigator.pushNamed(context, '/avisospage');
       }
-
-      if (_selectedIndex == 4) {
-        Navigator.pushNamed(context, '/calendariopage');
+      if (_selectedIndex == 0) {
+        Navigator.pushNamed(context, '/homepage');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Color customColor = const Color(0xFF6750A4);
-
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Asistencia'),
+        title: const Text('Calendario'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.account_circle_rounded,
-              color: customColor,
-            ),
+            icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
               // Acción para mostrar más opciones
             },
@@ -205,37 +201,48 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            SizedBox(height: screenHeight * 0.04),
-            const Text(
-              'Hola, en que te puede ayudar?',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: screenHeight * 0.04),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Buscar',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  DateFormat('EEE, MMM d').format(selectedDate),
+                  style: TextStyle(
+                    fontSize: screenHeight * 0.027,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+                SizedBox(height: screenHeight * 0.02),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.purple[50],
+                  ),
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      CalendarDatePicker(
+                        initialDate: selectedDate,
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100),
+                        onDateChanged: (date) {
+                          setState(() {
+                            selectedDate = date;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                _buildSectionHeader('CLASES', () {}),
+                _buildClassCard('Ingeniería en Sistemas',
+                    'Introducción a la Programación, Estructuras de Datos y Algoritmos'),
+                _buildClassCard(
+                    'Medicina', 'Anatomía Humana, Fisiología, Microbiología'),
+                _buildClassCard('Derecho',
+                    'Derecho Civil, Derecho Administrativo, Derecho de la Seguridad Social')
+              ],
             ),
-            SizedBox(height: screenHeight * 0.04),
-            _buildTaskCard(Icons.help, 'Cómo Usar la App',
-                'Aprende a usar todas las funciones de la aplicación',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
-            SizedBox(height: screenHeight * 0.02),
-            _buildTaskCard(Icons.bug_report, 'Reportar Error',
-                'Informa sobre cualquier error que encuentres',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
-            SizedBox(height: screenHeight * 0.02),
-            _buildTaskCard(Icons.question_answer, 'Ayuda con Dudas',
-                'Obtén asistencia para resolver tus dudas',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
-            SizedBox(height: screenHeight * 0.02),
-            _buildTaskCard(Icons.contact_support, 'Soporte Técnico',
-                'Contacta al soporte técnico para más ayuda',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
           ],
         ),
       ),
@@ -269,21 +276,35 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
     );
   }
 
-  Widget _buildTaskCard(IconData icon, String title, String subtitle,
-      {double width = 300, double height = 100}) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: Card(
-        child: ListTile(
-          leading: Icon(icon),
-          title: Text(title),
-          subtitle: Text(subtitle),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '/errorpage');
-          },
+  Widget _buildSectionHeader(String title, VoidCallback onViewAllPressed) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
+        TextButton(
+          onPressed: onViewAllPressed,
+          child: const Text('Ver todas', style: TextStyle(fontSize: 15)),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildClassCard(String title, String subtitle) {
+    return Card(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.grey[200],
+          child: const Icon(Icons.bookmark_add_rounded, color: Colors.grey),
+        ),
+        title: Text(title),
+        subtitle: Text(subtitle),
+        trailing: const Icon(Icons.arrow_forward),
+        onTap: () {
+          // Acción al presionar el elemento
+        },
       ),
     );
   }

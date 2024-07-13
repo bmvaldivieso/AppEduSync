@@ -61,6 +61,26 @@ class MyApp extends StatelessWidget {
           page: () => const AvisosPage(),
           transition: Transition.native,
         ),
+        GetPage(
+          name: '/calendariopage',
+          page: () => const CalendarioPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/listachatpage',
+          page: () => const ChatListPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/chatpage',
+          page: () => const ChatPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/errorpage',
+          page: () => const ReportErrorPage(),
+          transition: Transition.native,
+        ),
       ],
     );
   }

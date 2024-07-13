@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 
-class AsistenciaPage extends StatefulWidget {
-  const AsistenciaPage({super.key});
+class ChatListPage extends StatefulWidget {
+  const ChatListPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _AsistenciaPageState createState() => _AsistenciaPageState();
+  State<ChatListPage> createState() => _ChatListPageState();
 }
 
-class _AsistenciaPageState extends State<AsistenciaPage> {
-  int _selectedIndex = 1;
+class _ChatListPageState extends State<ChatListPage> {
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (_selectedIndex == 0) {
-        Navigator.pushNamed(context, '/homepage');
+      if (_selectedIndex == 1) {
+        Navigator.pushNamed(context, '/asistenciapage');
       }
       if (_selectedIndex == 2) {
         Navigator.pushNamed(context, '/tareaspage');
@@ -23,7 +22,9 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
       if (_selectedIndex == 3) {
         Navigator.pushNamed(context, '/avisospage');
       }
-
+      if (_selectedIndex == 0) {
+        Navigator.pushNamed(context, '/homepage');
+      }
       if (_selectedIndex == 4) {
         Navigator.pushNamed(context, '/calendariopage');
       }
@@ -35,20 +36,21 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
     Color customColor = const Color(0xFF6750A4);
 
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Asistencia'),
-        centerTitle: true,
+        title: const Text('Bandeja de Entrada'),
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.account_circle_rounded,
-              color: customColor,
-            ),
+            icon: const Icon(Icons.search),
             onPressed: () {
-              // Acción para mostrar más opciones
+              // Acción de búsqueda
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {
+              // Acción de más opciones
             },
           ),
         ],
@@ -201,43 +203,44 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
           ],
         ),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            SizedBox(height: screenHeight * 0.04),
-            const Text(
-              'Hola, en que te puede ayudar?',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: screenHeight * 0.04),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Buscar',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-            SizedBox(height: screenHeight * 0.04),
-            _buildTaskCard(Icons.help, 'Cómo Usar la App',
-                'Aprende a usar todas las funciones de la aplicación',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
-            SizedBox(height: screenHeight * 0.02),
-            _buildTaskCard(Icons.bug_report, 'Reportar Error',
-                'Informa sobre cualquier error que encuentres',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
-            SizedBox(height: screenHeight * 0.02),
-            _buildTaskCard(Icons.question_answer, 'Ayuda con Dudas',
-                'Obtén asistencia para resolver tus dudas',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
-            SizedBox(height: screenHeight * 0.02),
-            _buildTaskCard(Icons.contact_support, 'Soporte Técnico',
-                'Contacta al soporte técnico para más ayuda',
-                width: screenWidth * 0.2, height: screenHeight * 0.125),
-          ],
-        ),
+        children: [
+          _buildChatItem(
+              'Virginia M. Patterson',
+              'Hola, buenas noches estimado estudiante!',
+              '03',
+              '14:59',
+              context),
+          _buildChatItem('Dominick S. Jenkins', '¡Acabo de terminarlo!', '02',
+              '06:35', context),
+          _buildChatItem(
+              'Duncan E. Hoffman',
+              'Podría ser interesante si estás pensando en iniciar algo propio en el futuro.',
+              '',
+              '08:10',
+              context),
+          _buildChatItem('Roy R. McCraney', 'Definitivamente me interesa. ',
+              '05', '21:07', context),
+          _buildChatItem(
+              'Janice R. Norris',
+              'En cuanto a psicología del desarrollo, el curso con la profesora Martínez tiene muy buenas críticas.',
+              '',
+              '09:15',
+              context),
+          _buildChatItem(
+              'Marilyn C. Amerson',
+              'Sí, he oído que es muy práctico y orientado a proyectos reales.',
+              '03',
+              '14:59',
+              context),
+          _buildChatItem(
+              'Dominick S. Jenkins',
+              'reo que vamos a tener un semestre bastante productiv',
+              '02',
+              '06:35',
+              context),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -262,28 +265,45 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
             label: 'Calendario',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.purple,
+        currentIndex: 0,
         onTap: _onItemTapped,
       ),
     );
   }
 
-  Widget _buildTaskCard(IconData icon, String title, String subtitle,
-      {double width = 300, double height = 100}) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: Card(
-        child: ListTile(
-          leading: Icon(icon),
-          title: Text(title),
-          subtitle: Text(subtitle),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '/errorpage');
-          },
+  Widget _buildChatItem(String name, String message, String unreadCount,
+      String time, BuildContext context) {
+    Color customColor = const Color(0xFF6750A4);
+    return Card(
+      child: ListTile(
+        leading: const CircleAvatar(
+          backgroundColor: Colors.black,
+          child: Icon(Icons.person, color: Colors.white),
         ),
+        title: Text(name),
+        subtitle: Text(message),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (unreadCount.isNotEmpty)
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: customColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  unreadCount,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            const SizedBox(height: 4),
+            Text(time),
+          ],
+        ),
+        onTap: () {
+          Navigator.pushNamed(context, '/chatpage');
+        },
       ),
     );
   }
