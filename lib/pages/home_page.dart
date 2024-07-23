@@ -40,6 +40,19 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Inicio'),
         centerTitle: true,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: customColor,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -47,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               color: customColor,
             ),
             onPressed: () {
-              // Acción para mostrar más opciones
+              Navigator.pushNamed(context, '/usuariopage');
             },
           ),
         ],
@@ -124,7 +137,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
+                Navigator.pushNamed(context, '/listacursospage');
               },
             ),
             ListTile(
@@ -150,10 +163,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info),
@@ -164,10 +174,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.person_pin_rounded),
@@ -178,10 +185,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             const Divider(),
             ListTile(
@@ -216,31 +220,31 @@ class _HomePageState extends State<HomePage> {
                 _buildCourseCard(
                     'Computación',
                     'Conceptos básicos y fundamentos de programación',
-                    'assets/LogoEduSyncNegro.png'),
+                    'assets/computacion.png'),
                 SizedBox(width: screenWidth * 0.042),
                 _buildCourseCard(
                     'Física Avanzada',
                     'Estudio de la mecánica clásica y sus aplicaciones',
-                    'assets/LogoEduSyncAmarillo.png'),
+                    'assets/fisica.jpg'),
                 SizedBox(width: screenWidth * 0.042),
                 _buildCourseCard(
                     'Química General',
                     'Principios básicos de química y sus reacciones',
-                    'assets/LogoEduSyncAmarillo.png'),
+                    'assets/quimica.png'),
               ],
             ),
             SizedBox(height: screenHeight * 0.036),
-            _buildSectionHeader('TAREAS', () {}),
-            _buildTaskCard('Tarea 1 de Programación',
-                'Implementar un algoritmo de búsqueda'),
-            _buildTaskCard(
-                'Tarea de Física I', 'Resolver problemas de cinemática'),
+            _buildSectionHeader('CURSOS POPULARES', () {}),
+            _buildTaskCard('Diseño Gráfico Avanzado',
+                'Es el arte de la comunicación visual mediante texto, imá...'),
+            _buildTaskCard('Diseño Publicitario',
+                'Busca captar la atención del público objetivo y transmit...'),
             SizedBox(height: screenHeight * 0.036),
-            _buildSectionHeader('AVISOS', () {}),
-            _buildTaskCard(
-                'Aviso de Química General', 'Se pospone la clase del lunes'),
-            _buildTaskCard('Aviso de Programación',
-                'Nuevo material de estudio disponible'),
+            _buildSectionHeader('MENTORES', () {
+              Navigator.pushNamed(context, '/listamentorespage');
+            }),
+            _buildTaskCard2('Sonja Jensen', 'Full Stack Developer'),
+            _buildTaskCard2('Victoria Calsado', 'Diseñador Grafico'),
           ],
         ),
       ),
@@ -314,6 +318,20 @@ class _HomePageState extends State<HomePage> {
     return Card(
       child: ListTile(
         leading: const Icon(Icons.insert_drive_file),
+        title: Text(title),
+        subtitle: Text(subtitle),
+        trailing: const Icon(Icons.arrow_forward),
+        onTap: () {
+          // Acción al presionar el elemento
+        },
+      ),
+    );
+  }
+
+  Widget _buildTaskCard2(String title, String subtitle) {
+    return Card(
+      child: ListTile(
+        leading: const Icon(Icons.person),
         title: Text(title),
         subtitle: Text(subtitle),
         trailing: const Icon(Icons.arrow_forward),

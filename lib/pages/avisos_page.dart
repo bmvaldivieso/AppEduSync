@@ -39,6 +39,19 @@ class _AvisosPageState extends State<AvisosPage> {
       appBar: AppBar(
         title: const Text('Avisos'),
         centerTitle: true,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: customColor,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -46,7 +59,7 @@ class _AvisosPageState extends State<AvisosPage> {
               color: customColor,
             ),
             onPressed: () {
-              // Acción para mostrar más opciones
+              Navigator.pushNamed(context, '/usuariopage');
             },
           ),
         ],
@@ -123,7 +136,7 @@ class _AvisosPageState extends State<AvisosPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
+                Navigator.pushNamed(context, '/listacursospage');
               },
             ),
             ListTile(
@@ -149,10 +162,7 @@ class _AvisosPageState extends State<AvisosPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info),
@@ -163,10 +173,7 @@ class _AvisosPageState extends State<AvisosPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.person_pin_rounded),
@@ -177,10 +184,7 @@ class _AvisosPageState extends State<AvisosPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             const Divider(),
             ListTile(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ChatListPage extends StatefulWidget {
-  const ChatListPage({super.key});
+class ListaCursos extends StatefulWidget {
+  const ListaCursos({super.key});
 
   @override
-  State<ChatListPage> createState() => _ChatListPageState();
+  State<ListaCursos> createState() => _ListaCursosState();
 }
 
-class _ChatListPageState extends State<ChatListPage> {
+class _ListaCursosState extends State<ListaCursos> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -22,24 +22,25 @@ class _ChatListPageState extends State<ChatListPage> {
       if (_selectedIndex == 3) {
         Navigator.pushNamed(context, '/avisospage');
       }
-      if (_selectedIndex == 0) {
-        Navigator.pushNamed(context, '/homepage');
-      }
       if (_selectedIndex == 4) {
         Navigator.pushNamed(context, '/calendariopage');
+      }
+      if (_selectedIndex == 0) {
+        Navigator.pushNamed(context, '/homepage');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Color customColor = const Color(0xFF6750A4);
-
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    Color customColor = const Color(0xFF6750A4);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bandeja de Entrada'),
+        title: const Text('Mis Cursos'),
+        centerTitle: true,
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -55,18 +56,9 @@ class _ChatListPageState extends State<ChatListPage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: customColor),
+            icon: Icon(Icons.account_circle_rounded, color: customColor),
             onPressed: () {
-              // Acción de búsqueda
-            },
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.more_vert,
-              color: customColor,
-            ),
-            onPressed: () {
-              // Acción de más opciones
+              Navigator.pushNamed(context, '/usuariopage');
             },
           ),
         ],
@@ -210,43 +202,89 @@ class _ChatListPageState extends State<ChatListPage> {
           ],
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
+      body: Column(
         children: [
-          _buildChatItem(
-              'Virginia M. Patterson',
-              'Hola, buenas noches estimado estudiante!',
-              '03',
-              '14:59',
-              context),
-          _buildChatItem('Dominick S. Jenkins', '¡Acabo de terminarlo!', '02',
-              '06:35', context),
-          _buildChatItem(
-              'Duncan E. Hoffman',
-              'Podría ser interesante si estás pensando en iniciar algo propio en el futuro',
-              '',
-              '08:10',
-              context),
-          _buildChatItem('Roy R. McCraney', 'Definitivamente me interesa', '05',
-              '21:07', context),
-          _buildChatItem(
-              'Janice R. Norris',
-              'En cuanto a psicología del desarrollo, el curso con la profesora Martínez tiene muy buenas críticas',
-              '',
-              '09:15',
-              context),
-          _buildChatItem(
-              'Marilyn C. Amerson',
-              'Sí, he oído que es muy práctico y orientado a proyectos reales',
-              '03',
-              '14:59',
-              context),
-          _buildChatItem(
-              'Dominick S. Jenkins',
-              'Dominick que vamos a tener un semestre bastante productivo',
-              '02',
-              '06:35',
-              context),
+          Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Buscar …',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Terminado',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: screenHeight * 0.02,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Acción para mostrar los cursos en curso
+                  },
+                  child: Text(
+                    'En curso',
+                    style: TextStyle(
+                      color: customColor,
+                      fontSize: screenHeight * 0.02,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                _buildCourseCard(
+                    screenHeight,
+                    screenWidth,
+                    'Diseño UI/UX',
+                    'Introducción al diseño UI/UX',
+                    context,
+                    4.4,
+                    '3 Hrs 06 Min',
+                    93,
+                    125),
+                _buildCourseCard(
+                    screenHeight,
+                    screenWidth,
+                    'Desarrollo web',
+                    'Desarrollo de sitio web Wordpress...',
+                    context,
+                    3.9,
+                    '1 Hrs 58 Min',
+                    12,
+                    31),
+                _buildCourseCard(screenHeight, screenWidth, 'Diseño UI/UX',
+                    '3D Blender y UI/UX', context, 4.6, '2 Hrs 46 Min', 56, 98),
+                _buildCourseCard(
+                    screenHeight,
+                    screenWidth,
+                    'Diseño UI/UX',
+                    'Learn UX User Persona',
+                    context,
+                    3.9,
+                    '2 Hrs 15 Min',
+                    29,
+                    35),
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -272,45 +310,93 @@ class _ChatListPageState extends State<ChatListPage> {
             label: 'Calendario',
           ),
         ],
-        currentIndex: 0,
         onTap: _onItemTapped,
       ),
     );
   }
 
-  Widget _buildChatItem(String name, String message, String unreadCount,
-      String time, BuildContext context) {
-    Color customColor = const Color(0xFF6750A4);
-    return Card(
-      child: ListTile(
-        leading: const CircleAvatar(
-          backgroundColor: Colors.black,
-          child: Icon(Icons.person, color: Colors.white),
-        ),
-        title: Text(name),
-        subtitle: Text(message),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (unreadCount.isNotEmpty)
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: customColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  unreadCount,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-            const SizedBox(height: 4),
-            Text(time),
-          ],
-        ),
+  Widget _buildCourseCard(
+      double screenHeight,
+      double screenWidth,
+      String category,
+      String title,
+      BuildContext context,
+      double rating,
+      String duration,
+      int completed,
+      int total) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.05, vertical: screenHeight * 0.01),
+      child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/chatpage');
+          Navigator.pushNamed(context, '/cursopage');
         },
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(screenHeight * 0.02),
+            child: Row(
+              children: [
+                Container(
+                  width: screenHeight * 0.08,
+                  height: screenHeight * 0.08,
+                  color: Colors.black,
+                ),
+                SizedBox(width: screenWidth * 0.05),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        category,
+                        style: TextStyle(
+                          color: Colors.orange,
+                          fontSize: screenHeight * 0.018,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.01),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenHeight * 0.022,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.01),
+                      Row(
+                        children: [
+                          Icon(Icons.star,
+                              color: Colors.yellow, size: screenHeight * 0.018),
+                          SizedBox(width: screenWidth * 0.01),
+                          Text(
+                            rating.toString(),
+                            style: TextStyle(fontSize: screenHeight * 0.018),
+                          ),
+                          SizedBox(width: screenWidth * 0.02),
+                          Icon(Icons.access_time, size: screenHeight * 0.018),
+                          SizedBox(width: screenWidth * 0.01),
+                          Text(
+                            duration,
+                            style: TextStyle(fontSize: screenHeight * 0.018),
+                          ),
+                          SizedBox(width: screenWidth * 0.02),
+                          Text(
+                            '$completed/$total',
+                            style: TextStyle(fontSize: screenHeight * 0.018),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

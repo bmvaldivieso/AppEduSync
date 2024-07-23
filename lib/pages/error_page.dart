@@ -40,14 +40,17 @@ class _ReportErrorPageState extends State<ReportErrorPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: customColor),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: Icon(
+              Icons.more_vert,
+              color: customColor,
+            ),
             onPressed: () {
               // Acción de más opciones
             },

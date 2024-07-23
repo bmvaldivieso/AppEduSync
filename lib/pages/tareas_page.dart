@@ -40,6 +40,19 @@ class _TareasPageState extends State<TareasPage> {
       appBar: AppBar(
         title: const Text('Tareas'),
         centerTitle: true,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: customColor,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -47,7 +60,7 @@ class _TareasPageState extends State<TareasPage> {
               color: customColor,
             ),
             onPressed: () {
-              // Acción para mostrar más opciones
+              Navigator.pushNamed(context, '/usuariopage');
             },
           ),
         ],
@@ -124,7 +137,7 @@ class _TareasPageState extends State<TareasPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
+                Navigator.pushNamed(context, '/listacursospage');
               },
             ),
             ListTile(
@@ -150,10 +163,7 @@ class _TareasPageState extends State<TareasPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info),
@@ -164,10 +174,7 @@ class _TareasPageState extends State<TareasPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.person_pin_rounded),
@@ -178,10 +185,7 @@ class _TareasPageState extends State<TareasPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             const Divider(),
             ListTile(
@@ -335,7 +339,7 @@ class _TareasPageState extends State<TareasPage> {
         subtitle: Text(description),
         trailing: Text(time),
         onTap: () {
-          // Acción al presionar el elemento
+          Navigator.pushNamed(context, '/tareapage');
         },
       ),
     );

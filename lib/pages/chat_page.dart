@@ -33,18 +33,20 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    Color customColor = const Color(0xFF6750A4);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Nicholas'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: customColor),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, color: customColor),
             onPressed: () {
               // Acción de más opciones
             },
@@ -109,6 +111,8 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildMessageBubble(String message, String time, bool isSentByMe,
       {bool isImage = false}) {
+    Color customColor = const Color(0xFF6750A4);
+
     return Align(
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
@@ -120,7 +124,7 @@ class _ChatPageState extends State<ChatPage> {
             margin: const EdgeInsets.symmetric(vertical: 4.0),
             constraints: const BoxConstraints(maxWidth: 200),
             decoration: BoxDecoration(
-              color: isSentByMe ? Colors.purple : Colors.blue[50],
+              color: isSentByMe ? customColor : Colors.blue[50],
               borderRadius: BorderRadius.circular(20.0),
             ),
             child: isImage
@@ -150,6 +154,8 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildMessageInput() {
+    Color customColor = const Color(0xFF6750A4);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
@@ -170,7 +176,7 @@ class _ChatPageState extends State<ChatPage> {
           const SizedBox(width: 8),
           CircleAvatar(
             radius: 25,
-            backgroundColor: Colors.purple,
+            backgroundColor: customColor,
             child: IconButton(
               icon: const Icon(Icons.send, color: Colors.white),
               onPressed: () {

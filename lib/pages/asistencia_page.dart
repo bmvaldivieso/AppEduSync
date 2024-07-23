@@ -41,6 +41,19 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
       appBar: AppBar(
         title: const Text('Asistencia'),
         centerTitle: true,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: customColor,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -48,7 +61,7 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
               color: customColor,
             ),
             onPressed: () {
-              // Acción para mostrar más opciones
+              Navigator.pushNamed(context, '/usuariopage');
             },
           ),
         ],
@@ -125,7 +138,7 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
+                Navigator.pushNamed(context, '/listacursospage');
               },
             ),
             ListTile(
@@ -151,10 +164,7 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info),
@@ -165,10 +175,7 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.person_pin_rounded),
@@ -179,10 +186,7 @@ class _AsistenciaPageState extends State<AsistenciaPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             const Divider(),
             ListTile(

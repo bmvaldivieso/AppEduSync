@@ -81,6 +81,51 @@ class MyApp extends StatelessWidget {
           page: () => const ReportErrorPage(),
           transition: Transition.native,
         ),
+        GetPage(
+          name: '/listacursospage',
+          page: () => const ListaCursos(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/usuariopage',
+          page: () => const UsuarioPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/cursopage',
+          page: () => const CursoPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/usuario2page',
+          page: () => const EditProfilePage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/listamentorespage',
+          page: () => const MentorsListPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/mentorpage',
+          page: () => const MentorInfoPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/tareapage',
+          page: () => const TareaPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/listapagopage',
+          page: () => const PaymentOptionsPage(),
+          transition: Transition.native,
+        ),
+        GetPage(
+          name: '/tarjetapage',
+          page: () => const AddCreditCardPage(),
+          transition: Transition.native,
+        ),
       ],
     );
   }

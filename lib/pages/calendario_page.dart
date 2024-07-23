@@ -40,11 +40,24 @@ class _CalendarioPageState extends State<CalendarioPage> {
       appBar: AppBar(
         title: const Text('Calendario'),
         centerTitle: true,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: customColor,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.account_circle_rounded),
+            icon: Icon(Icons.account_circle_rounded, color: customColor),
             onPressed: () {
-              // Acción para mostrar más opciones
+              Navigator.pushNamed(context, '/usuariopage');
             },
           ),
         ],
@@ -121,7 +134,7 @@ class _CalendarioPageState extends State<CalendarioPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
+                Navigator.pushNamed(context, '/listacursospage');
               },
             ),
             ListTile(
@@ -147,10 +160,7 @@ class _CalendarioPageState extends State<CalendarioPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info),
@@ -161,10 +171,7 @@ class _CalendarioPageState extends State<CalendarioPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.person_pin_rounded),
@@ -175,10 +182,7 @@ class _CalendarioPageState extends State<CalendarioPage> {
                   fontSize: screenHeight * 0.02,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/calendariopage');
-              },
+              onTap: () {},
             ),
             const Divider(),
             ListTile(

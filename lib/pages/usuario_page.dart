@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ChatListPage extends StatefulWidget {
-  const ChatListPage({super.key});
+class UsuarioPage extends StatefulWidget {
+  const UsuarioPage({super.key});
 
   @override
-  State<ChatListPage> createState() => _ChatListPageState();
+  State<UsuarioPage> createState() => _UsuarioPageState();
 }
 
-class _ChatListPageState extends State<ChatListPage> {
+class _UsuarioPageState extends State<UsuarioPage> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -22,24 +22,25 @@ class _ChatListPageState extends State<ChatListPage> {
       if (_selectedIndex == 3) {
         Navigator.pushNamed(context, '/avisospage');
       }
-      if (_selectedIndex == 0) {
-        Navigator.pushNamed(context, '/homepage');
-      }
       if (_selectedIndex == 4) {
         Navigator.pushNamed(context, '/calendariopage');
+      }
+      if (_selectedIndex == 0) {
+        Navigator.pushNamed(context, '/homepage');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Color customColor = const Color(0xFF6750A4);
-
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    Color customColor = const Color(0xFF6750A4);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bandeja de Entrada'),
+        title: const Text('Perfil'),
+        centerTitle: true,
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -55,18 +56,12 @@ class _ChatListPageState extends State<ChatListPage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: customColor),
-            onPressed: () {
-              // Acción de búsqueda
-            },
-          ),
-          IconButton(
             icon: Icon(
-              Icons.more_vert,
+              Icons.account_circle_rounded,
               color: customColor,
             ),
             onPressed: () {
-              // Acción de más opciones
+              Navigator.pushNamed(context, '/usuariopage');
             },
           ),
         ],
@@ -210,44 +205,122 @@ class _ChatListPageState extends State<ChatListPage> {
           ],
         ),
       ),
-      body: ListView(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildChatItem(
-              'Virginia M. Patterson',
-              'Hola, buenas noches estimado estudiante!',
-              '03',
-              '14:59',
-              context),
-          _buildChatItem('Dominick S. Jenkins', '¡Acabo de terminarlo!', '02',
-              '06:35', context),
-          _buildChatItem(
-              'Duncan E. Hoffman',
-              'Podría ser interesante si estás pensando en iniciar algo propio en el futuro',
-              '',
-              '08:10',
-              context),
-          _buildChatItem('Roy R. McCraney', 'Definitivamente me interesa', '05',
-              '21:07', context),
-          _buildChatItem(
-              'Janice R. Norris',
-              'En cuanto a psicología del desarrollo, el curso con la profesora Martínez tiene muy buenas críticas',
-              '',
-              '09:15',
-              context),
-          _buildChatItem(
-              'Marilyn C. Amerson',
-              'Sí, he oído que es muy práctico y orientado a proyectos reales',
-              '03',
-              '14:59',
-              context),
-          _buildChatItem(
-              'Dominick S. Jenkins',
-              'Dominick que vamos a tener un semestre bastante productivo',
-              '02',
-              '06:35',
-              context),
-        ],
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: screenWidth * 0.15,
+              backgroundImage: const AssetImage(
+                  'assets/person.jpg'), // Reemplaza con la imagen correcta
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Text(
+              'Albert Stevano Bajefski',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: screenHeight * 0.03,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.005),
+            Text(
+              'Albertstevano@gmail.com',
+              style: TextStyle(
+                fontSize: screenHeight * 0.02,
+                color: Colors.grey,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.03),
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: Text(
+                'Editar Perfil',
+                style: TextStyle(fontSize: screenHeight * 0.022),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.pushNamed(context, '/usuario2page');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: Text(
+                'Configuración',
+                style: TextStyle(fontSize: screenHeight * 0.022),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Acción para configuración
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: Text(
+                'Pagos',
+                style: TextStyle(fontSize: screenHeight * 0.022),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/listapagopage');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.help),
+              title: Text(
+                'Centro de ayuda',
+                style: TextStyle(fontSize: screenHeight * 0.022),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Acción para centro de ayuda
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete),
+              title: Text(
+                'Solicitar eliminación',
+                style: TextStyle(fontSize: screenHeight * 0.022),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Acción para solicitar eliminación
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person_add),
+              title: Text(
+                'Agregar otra cuenta',
+                style: TextStyle(fontSize: screenHeight * 0.022),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Acción para agregar otra cuenta
+              },
+            ),
+            const Spacer(),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.red,
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.22,
+                    vertical: screenHeight * 0.018),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+              icon: const Icon(Icons.exit_to_app),
+              label: Text(
+                'Cerrar sesión',
+                style: TextStyle(fontSize: screenHeight * 0.022),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -274,43 +347,6 @@ class _ChatListPageState extends State<ChatListPage> {
         ],
         currentIndex: 0,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-
-  Widget _buildChatItem(String name, String message, String unreadCount,
-      String time, BuildContext context) {
-    Color customColor = const Color(0xFF6750A4);
-    return Card(
-      child: ListTile(
-        leading: const CircleAvatar(
-          backgroundColor: Colors.black,
-          child: Icon(Icons.person, color: Colors.white),
-        ),
-        title: Text(name),
-        subtitle: Text(message),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (unreadCount.isNotEmpty)
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: customColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  unreadCount,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-            const SizedBox(height: 4),
-            Text(time),
-          ],
-        ),
-        onTap: () {
-          Navigator.pushNamed(context, '/chatpage');
-        },
       ),
     );
   }
